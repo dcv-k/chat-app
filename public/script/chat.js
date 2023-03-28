@@ -23,6 +23,20 @@ socket.on("disconnect", () => {
     console.log("disconnected from server")
 })
 
+socket.on("updateUsersList", (users) => {
+    let ol = document.createElement("ol")
+
+    users.forEach((user) => {
+        let li = document.createElement("li")
+        li.innerHTML = user
+        ol.appendChild(li)
+    })
+
+    let userList = document.querySelector("#people")
+    userList.innerHTML = ""
+    userList.appendChild(ol)
+})
+
 socket.on("newMessage", message => {
     let formattedTime = moment(message.createdAt).format("LT")
     let template = document.querySelector("#message-template").innerHTML
