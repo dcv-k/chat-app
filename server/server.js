@@ -34,11 +34,10 @@ io.on("connection", socket => {
         let reUser = user.getUser(socket.id)
 
         if (reUser && isRealString(message.text)) {
-            io.to(reUser.room).emit("newMessage", generateMessage(user.name, message.text))
+            io.to(reUser.room).emit("newMessage", generateMessage(reUser.name, message.text))
         }
 
-        io.emit("newMessage", generateMessage(message.from, message.text))
-        callback()
+        callback("This is the server")
     })
 
     socket.on("createLocationMessage", (coords) => {
